@@ -13,7 +13,17 @@
       },
       "worker": {
         "auth_key": "worker",
-        "usages": ["signing", "key encipherment", "server auth"],
+        "usages": ["signing", "key encipherment", "client auth", "server auth"],
+        "expiry": "720h"
+      },
+      "cni": {
+        "auth_key": "worker",
+        "usages": ["signing", "key encipherment", "client auth", "server auth"],
+        "expiry": "720h"
+      },
+      "proxy": {
+        "auth_key": "worker",
+        "usages": ["signing", "key encipherment", "client auth", "server auth"],
         "expiry": "720h"
       }
     }

@@ -7,7 +7,7 @@
       }
     },
     "profiles": {
-      "worker": {
+      "cni": {
         "auth_remote": {
           "remote": "ca_server",
           "auth_key": "worker"

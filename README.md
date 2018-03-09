@@ -7,13 +7,13 @@ This is a docker container with a basic setup for providing a PKI infrastructure
 Run CA server, we'll use `--net=host` for the example.
 
 ```
-docker run --net host --env-file .env --rm -it coldog/pki
+docker run --net host --env-file .env.example --rm -it coldog/pki
 ```
 
 Sign a certificate using a provided profile.
 
 ```
-docker run --net host --rm -it --env-file .env -v $PWD/certs:/certs coldog/pki gencert etcd client
+docker run --net host --rm -it --env-file .env.example -v $PWD/certs:/certs coldog/pki gencert etcd client
 ```
 
 Available profiles:
@@ -26,11 +26,11 @@ Available profiles:
 - `etcd-server`
 - `pki-server`
 
-Profiles can be added by including a new folder under `csr/<ca-name>-<profile>` with a `csr.json` and a `profile.json`.
+Profiles can be added by including a new folder under `csr/<ca-name>-<profile>` with a `csr.json` and a `profile.json`. These files will be run through `envsubst` so you can include bash variable replacement.
 
 ## Configuration
 
-The profile and CSR json files may be modified with additional environment variables.
+The profile and CSR json files may be modified with additional environment variables. The following is an example that will work locally:
 
 ```bash
 # These are hex encoded secret keys.
