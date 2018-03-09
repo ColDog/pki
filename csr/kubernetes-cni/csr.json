@@ -1,0 +1,12 @@
+{
+  "CN": "system:cni:${INSTANCE_ID}",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [{
+    "C": "US",
+    "O": "system:masters",
+    "OU": "Kubernetes"
+  }]
+}

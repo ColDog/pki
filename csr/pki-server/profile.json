@@ -1,0 +1,15 @@
+{
+  "local": true,
+  "signing": {
+    "default": {
+      "expiry": "720h",
+      "usages": ["signing", "key encipherment", "client auth", "server auth"]
+    },
+    "profiles": {
+      "server": {
+        "expiry": "720h",
+        "usages": ["signing", "key encipherment", "client auth", "server auth"]
+      }
+    }
+  }
+}

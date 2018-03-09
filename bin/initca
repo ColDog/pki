@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -e
+
+mkdir -p certs
+
+if [ "$S3_PATH" ]; then
+  aws s3 cp --recursive s3://$S3_PATH certs
+  if [ -f certs/ca-initialized ]; then
+    echo "ca successfully loaded from s3"
+    exit 0
+  fi
+fi
+
+for name in $(find ca -type d -maxdepth 1 -mindepth 1 -exec basename {} \;); do
+  echo "==> $name"
+  cfssl gencert -initca ca/$name/ca-csr.json | cfssljson -bare certs/$name-ca
+done
+
+echo "==> local pki server"
+gencert pki server
+
+touch certs/ca-initialized
+
+if [ "$S3_PATH" ]; then
+  aws s3 cp --recursive certs s3://$S3_PATH
+fi

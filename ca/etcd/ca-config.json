@@ -1,0 +1,31 @@
+{
+  "signing": {
+    "default": {
+      "auth_key": "client",
+      "expiry": "720h",
+      "usages": ["signing", "key encipherment", "client auth"]
+    },
+    "profiles": {
+      "client": {
+        "auth_key": "client",
+        "usages": ["signing", "key encipherment", "client auth"],
+        "expiry": "720h"
+      },
+      "server": {
+        "auth_key": "server",
+        "usages": ["signing", "key encipherment", "server auth"],
+        "expiry": "720h"
+      }
+    }
+  },
+  "auth_keys": {
+    "client": {
+      "key": "${ETCD_CLIENT_KEY}",
+      "type": "standard"
+    },
+    "server": {
+      "key": "${ETCD_SERVER_KEY}",
+      "type": "standard"
+    }
+  }
+}

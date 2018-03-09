@@ -1,0 +1,16 @@
+{
+  "CN": "system:etcd:server:${INSTANCE_ID}",
+  "hosts": [
+    "127.0.0.1",
+    "test.com"
+  ],
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [{
+    "C": "US",
+    "O": "system:etcd:server",
+    "OU": "ETCD"
+  }]
+}

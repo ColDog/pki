@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+function subst() {
+  ( echo "cat <<EOF" ; cat $1 ; echo EOF ) | sh
+}
+
+if [ -f .env ]; then source .env; fi
+
+for name in $(find ca -type d -maxdepth 1 -mindepth 1 -exec basename {} \;); do
+  subst ca/$name/ca-config.json > ca/$name/.ca-config.json
+done
+
+echo "==> initializing ca"
+initca
+
+echo "==> starting server on 0.0.0.0:8080"
+exec multirootca \
+  -a 0.0.0.0:8080 \
+  -l default \
+  -roots ca/multirootca.ini \
+  -tls-cert certs/pki-server.pem \
+  -tls-key certs/pki-server-key.pem

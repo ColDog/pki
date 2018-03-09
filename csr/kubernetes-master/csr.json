@@ -1,0 +1,19 @@
+{
+  "CN": "system:node:${INSTANCE_ID}",
+  "hosts": [
+    "127.0.0.1",
+    "${INSTANCE_IP}",
+    "${INSTANCE_HOSTNAME}",
+    "${KUBERNETES_MASTER_PUBLIC}",
+    "${KUBERNETES_MASTER_INTERNAL}"
+  ],
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [{
+    "C": "US",
+    "O": "system:nodes",
+    "OU": "Kubernetes"
+  }]
+}
