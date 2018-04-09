@@ -3,7 +3,8 @@
   "hosts": [
     "127.0.0.1",
     "${INSTANCE_IP}",
-    "${INSTANCE_HOSTNAME}"
+    "${INSTANCE_HOSTNAME}",
+    "${CA_HOST}"
   ],
   "key": {
     "algo": "rsa",
