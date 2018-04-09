@@ -12,8 +12,13 @@ for name in $(find ca -type d -maxdepth 1 -mindepth 1 -exec basename {} \;); do
   subst ca/$name/ca-config.json > ca/$name/.ca-config.json
 done
 
-echo "==> initializing ca"
-initca
+if [ "$S3_PATH" ]; then
+  echo "==> loading certs from s3://$S3_PATH"
+  aws s3 cp --recursive s3://$S3_PATH certs
+fi
+
+echo "==> local pki server"
+gencert pki server
 
 echo "==> starting server on 0.0.0.0:8080"
 exec multirootca \

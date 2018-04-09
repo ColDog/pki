@@ -22,9 +22,10 @@ Available profiles:
 - `kubernetes master`
 - `kubernetes proxy`
 - `kubernetes worker`
-- `etcd-client`
-- `etcd-server`
-- `pki-server`
+- `etcd client`
+- `etcd server`
+- `etcd peer`
+- `pki server`
 
 Profiles can be added by including a new folder under `csr/<ca-name>-<profile>` with a `csr.json` and a `profile.json`. These files will be run through `envsubst` so you can include bash variable replacement.
 
@@ -41,6 +42,7 @@ ETCD_SERVER_KEY=0123456789ABCDEF0123456789ABCDEF
 
 # The URL of the CA server.
 CA_URL=https://127.0.0.1:8080
+CA_HOST=192.168.0.11
 
 # Instance hostname.
 INSTANCE_HOSTNAME=testing.local

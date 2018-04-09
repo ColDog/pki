@@ -17,9 +17,6 @@ for name in $(find ca -type d -maxdepth 1 -mindepth 1 -exec basename {} \;); do
   cfssl gencert -initca ca/$name/ca-csr.json | cfssljson -bare certs/$name-ca
 done
 
-echo "==> local pki server"
-gencert pki server
-
 touch certs/ca-initialized
 
 if [ "$S3_PATH" ]; then

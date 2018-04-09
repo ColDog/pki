@@ -1,1 +1,7 @@
+# Generated certs.
 certs
+
+# Terraform config.
+.terraform
+/main.tf
+*.tfstate*

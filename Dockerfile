@@ -14,12 +14,15 @@ RUN apk -v --update --no-cache add \
     bash \
   && \
   pip install --upgrade awscli && \
-  apk -v --purge del py-pip
+  apk -v --purge del py-pip && \
+  addgroup -g 1000 pki && adduser -u 1000 -G pki -s /bin/sh -D pki
+
 COPY --from=0 /go/bin/ /bin/
 COPY bin/ /bin/
 
 
 COPY ca /ca
 COPY csr /csr
+EXPOSE 8080
 
 CMD [ "/bin/runca" ]
