@@ -1,0 +1,12 @@
+{
+  "CN": "system:etcd:peer:${INSTANCE_ID}",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [{
+    "C": "US",
+    "O": "system:etcd:peer",
+    "OU": "ETCD"
+  }]
+}

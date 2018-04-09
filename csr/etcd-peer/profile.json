@@ -1,0 +1,27 @@
+{
+  "signing": {
+    "default": {
+      "auth_remote": {
+        "remote": "ca_server",
+        "auth_key": "client"
+      }
+    },
+    "profiles": {
+      "client": {
+        "auth_remote": {
+          "remote": "ca_server",
+          "auth_key": "client"
+        }
+      }
+    }
+  },
+  "auth_keys": {
+    "client": {
+      "key": "${ETCD_SERVER_KEY}",
+      "type": "standard"
+    }
+  },
+  "remotes": {
+    "ca_server": "${CA_URL}"
+  }
+}
