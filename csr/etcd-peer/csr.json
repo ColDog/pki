@@ -1,12 +1,16 @@
 {
   "CN": "system:etcd:peer:${INSTANCE_ID}",
+  "hosts": [
+    "127.0.0.1",
+    "${INSTANCE_IP}",
+    "${INSTANCE_HOSTNAME}"
+  ],
   "key": {
     "algo": "rsa",
     "size": 2048
   },
   "names": [{
     "C": "US",
-    "O": "system:etcd:peer",
-    "OU": "ETCD"
+    "O": "system:etcd:peer"
   }]
 }

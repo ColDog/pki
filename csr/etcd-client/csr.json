@@ -6,7 +6,6 @@
   },
   "names": [{
     "C": "US",
-    "O": "system:etcd:client",
-    "OU": "ETCD"
+    "O": "system:etcd:client"
   }]
 }

@@ -22,11 +22,11 @@ subst csr/$name/csr.json > csr/$name/.csr.json
 function sign_local_cert() {
   echo "==> generating local cert"
   cfssl gencert \
-    -config=csr/$name/profile.json \
+    -config=csr/$name/.profile.json \
     -ca certs/$ca-ca.pem \
     -ca-key certs/$ca-ca-key.pem \
     -profile=$profile \
-    csr/$name/csr.json | cfssljson -bare certs/$name
+    csr/$name/.csr.json | cfssljson -bare certs/$name
   return $?
 }
 
@@ -48,10 +48,6 @@ function sign_remote_cert() {
   code=$?
 
   cp certs/$ca-ca.pem certs/$name-ca.pem
-
-  rm csr/$name/.csr.json
-  rm csr/$name/.profile.json
-
   return $code
 }
 

@@ -23,7 +23,7 @@ data "aws_ami" "coreos_ami" {
 }
 
 resource "aws_launch_configuration" "pki" {
-  name                 = "${var.namespace}-pki-${sha256(data.ignition_config.pki.rendered)}"
+  name                 = "${var.namespace}-pki-${substr(sha256(data.ignition_config.pki.rendered), 0, 8)}"
   image_id             = "${data.aws_ami.coreos_ami.image_id}"
   instance_type        = "${var.instance_type}"
   key_name             = "${var.ssh_key}"

@@ -15,6 +15,11 @@
         "auth_key": "server",
         "usages": ["signing", "key encipherment", "server auth"],
         "expiry": "720h"
+      },
+      "peer": {
+        "auth_key": "server",
+        "usages": ["signing", "key encipherment", "server auth"],
+        "expiry": "720h"
       }
     }
   },
