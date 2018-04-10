@@ -16,6 +16,9 @@ fi
 
 mkdir -p certs
 
+subst csr/$name/profile.json > csr/$name/.profile.json
+subst csr/$name/csr.json > csr/$name/.csr.json
+
 function sign_local_cert() {
   echo "==> generating local cert"
   cfssl gencert \
@@ -33,9 +36,6 @@ function sign_remote_cert() {
   curl --insecure -sSL -d '{"label": "pki"}' "${CA_URL}/api/v1/cfssl/info" | jq -r '.result.certificate' > certs/pki-ca.pem
   echo "==> fetching $ca ca from $CA_URL"
   curl --cacert certs/pki-ca.pem -sSL -d "{\"label\": \"$ca\"}" "${CA_URL}/api/v1/cfssl/info" | jq -r '.result.certificate' > certs/$ca-ca.pem
-
-  subst csr/$name/profile.json > csr/$name/.profile.json
-  subst csr/$name/csr.json > csr/$name/.csr.json
 
   echo "==> generating certificate $name"
   cfssl gencert \
