@@ -16,7 +16,7 @@ fi
 
 mkdir -p certs
 
-if [ "$(cat csr/$name/profile.json | jq -r '.local')" = "true" ]; then
+function sign_local_cert() {
   echo "==> generating local cert"
   cfssl gencert \
     -config=csr/$name/profile.json \
@@ -24,30 +24,40 @@ if [ "$(cat csr/$name/profile.json | jq -r '.local')" = "true" ]; then
     -ca-key certs/$ca-ca-key.pem \
     -profile=$profile \
     csr/$name/csr.json | cfssljson -bare certs/$name
+  return $?
+}
+
+function sign_remote_cert() {
+  echo "==> signing remote cert"
+  echo "==> fetching pki server ca from $CA_URL"
+  curl --insecure -sSL -d '{"label": "pki"}' "${CA_URL}/api/v1/cfssl/info" | jq -r '.result.certificate' > certs/pki-ca.pem
+  echo "==> fetching $ca ca from $CA_URL"
+  curl --cacert certs/pki-ca.pem -sSL -d "{\"label\": \"$ca\"}" "${CA_URL}/api/v1/cfssl/info" | jq -r '.result.certificate' > certs/$ca-ca.pem
+
+  subst csr/$name/profile.json > csr/$name/.profile.json
+  subst csr/$name/csr.json > csr/$name/.csr.json
+
+  echo "==> generating certificate $name"
+  cfssl gencert \
+    -config=csr/$name/.profile.json \
+    -tls-remote-ca certs/pki-ca.pem \
+    -profile=$profile \
+    -label=$ca \
+    -loglevel=0 \
+    csr/$name/.csr.json | cfssljson -bare certs/$name
+  code=$?
+
+  cp certs/$ca-ca.pem certs/$name-ca.pem
+
+  rm csr/$name/.csr.json
+  rm csr/$name/.profile.json
+
+  return $code
+}
+
+if [ "$(cat csr/$name/profile.json | jq -r '.local')" = "true" ]; then
+  sign_local_cert
   exit $?
+else
+  while ! sign_remote_cert; do sleep 5; done
 fi
-
-echo "==> fetching pki server ca from $CA_URL"
-curl --insecure -sSL -d '{"label": "pki"}' "${CA_URL}/api/v1/cfssl/info" | jq -r '.result.certificate' > certs/pki-ca.pem
-echo "==> fetching $ca ca from $CA_URL"
-curl --cacert certs/pki-ca.pem -sSL -d "{\"label\": \"$ca\"}" "${CA_URL}/api/v1/cfssl/info" | jq -r '.result.certificate' > certs/$ca-ca.pem
-
-subst csr/$name/profile.json > csr/$name/.profile.json
-subst csr/$name/csr.json > csr/$name/.csr.json
-
-echo "==> generating certificate $name"
-cfssl gencert \
-  -config=csr/$name/.profile.json \
-  -tls-remote-ca certs/pki-ca.pem \
-  -profile=$profile \
-  -label=$ca \
-  -loglevel=0 \
-  csr/$name/.csr.json | cfssljson -bare certs/$name
-code=$?
-
-cp certs/$ca-ca.pem certs/$name-ca.pem
-
-rm csr/$name/.csr.json
-rm csr/$name/.profile.json
-
-exit $code
