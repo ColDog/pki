@@ -48,7 +48,7 @@ data "ignition_systemd_unit" "pki_server" {
 
   content = <<EOF
 [Unit]
-Description=Configure etcd configuration file.
+Description=PKIServer
 Requires=coreos-metadata.service
 After=coreos-metadata.service
 
