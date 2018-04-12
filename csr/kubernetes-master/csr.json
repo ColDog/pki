@@ -1,5 +1,5 @@
 {
-  "CN": "system:node:${INSTANCE_ID}",
+  "CN": "system:master:${INSTANCE_ID}",
   "hosts": [
     "127.0.0.1",
     "${INSTANCE_IP}",
@@ -13,7 +13,7 @@
   },
   "names": [{
     "C": "US",
-    "O": "system:nodes",
+    "O": "system:masters",
     "OU": "Kubernetes"
   }]
 }

@@ -25,6 +25,16 @@
         "auth_key": "worker",
         "usages": ["signing", "key encipherment", "client auth", "server auth"],
         "expiry": "720h"
+      },
+      "scheduler": {
+        "auth_key": "master",
+        "usages": ["signing", "key encipherment", "client auth", "server auth"],
+        "expiry": "720h"
+      },
+      "controller-manager": {
+        "auth_key": "master",
+        "usages": ["signing", "key encipherment", "client auth", "server auth"],
+        "expiry": "720h"
       }
     }
   },
