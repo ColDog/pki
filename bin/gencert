@@ -1,8 +1,13 @@
 #!/bin/bash
 
-ca="$1"
-profile="$2"
-name="$ca-$profile"
+name=""
+if [ "$2" == "" ]; then
+  ca="$1"
+  profile="$2"
+  name="$ca-$profile"
+else
+  name="$1"
+fi
 
 function subst() {
   ( echo "cat <<EOF" ; cat $1 ; echo EOF ) | sh
