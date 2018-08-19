@@ -11,7 +11,7 @@
         "usages": ["signing", "key encipherment", "client auth"],
         "expiry": "720h"
       },
-      "worker": {
+      "kubelet": {
         "auth_key": "worker",
         "usages": ["signing", "key encipherment", "client auth", "server auth"],
         "expiry": "720h"
@@ -31,7 +31,7 @@
         "usages": ["signing", "key encipherment", "client auth", "server auth"],
         "expiry": "720h"
       },
-      "controller-manager": {
+      "controllermanager": {
         "auth_key": "master",
         "usages": ["signing", "key encipherment", "client auth", "server auth"],
         "expiry": "720h"

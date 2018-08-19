@@ -1,0 +1,27 @@
+{
+  "signing": {
+    "default": {
+      "auth_remote": {
+        "remote": "ca_server",
+        "auth_key": "worker"
+      }
+    },
+    "profiles": {
+      "cni": {
+        "auth_remote": {
+          "remote": "ca_server",
+          "auth_key": "worker"
+        }
+      }
+    }
+  },
+  "auth_keys": {
+    "worker": {
+      "key": "${KUBERNETES_WORKER_KEY}",
+      "type": "standard"
+    }
+  },
+  "remotes": {
+    "ca_server": "${CA_URL}"
+  }
+}

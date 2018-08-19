@@ -3,20 +3,20 @@
     "default": {
       "auth_remote": {
         "remote": "ca_server",
-        "auth_key": "worker"
+        "auth_key": "kubelet"
       }
     },
     "profiles": {
-      "worker": {
+      "kubelet": {
         "auth_remote": {
           "remote": "ca_server",
-          "auth_key": "worker"
+          "auth_key": "kubelet"
         }
       }
     }
   },
   "auth_keys": {
-    "worker": {
+    "kubelet": {
       "key": "${KUBERNETES_WORKER_KEY}",
       "type": "standard"
     }
